@@ -187,6 +187,13 @@ func (cw *Context) String() string {
 	return fmt.Sprintf("Context state: %v", cw.state)
 }
 
+// GetContext returns a context.Context.
+func (cw *Context) GetContext() context.Context {
+	cw.mu.Lock()
+	defer cw.mu.Unlock()
+	return cw.ctx
+}
+
 // NewContextWithCancel creates a new Context with the ability to cancel.
 func NewContextWithCancel(parent context.Context) *Context {
 	ctx, cancel := context.WithCancel(parent)
